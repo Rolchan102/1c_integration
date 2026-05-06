@@ -1,0 +1,23 @@
+# 1C Integration Cron Tasks
+# Server: crm.svetpremium.ru
+
+# === КАЖДЫЕ 15 СЕКУНД (запуск обёртки каждую минуту) ===
+* * * * * /home/bitrix/www/local/1c_integration/cron/run_every_15sec.sh "/home/bitrix/www/local/1c_integration/step1_sync_payment.php" "/home/bitrix/www/local/1c_integration/logs/cron/step1.log" "step1" &
+* * * * * /home/bitrix/www/local/1c_integration/cron/run_every_15sec.sh "/home/bitrix/www/local/1c_integration/step2_stage_to_order.php" "/home/bitrix/www/local/1c_integration/logs/cron/step2.log" "step2" &
+* * * * * /home/bitrix/www/local/1c_integration/cron/run_every_15sec.sh "/home/bitrix/www/local/1c_integration/step2_1_order_to_supplier.php" "/home/bitrix/www/local/1c_integration/logs/cron/step2_1.log" "step2_1" &
+* * * * * /home/bitrix/www/local/1c_integration/cron/run_every_15sec.sh "/home/bitrix/www/local/1c_integration/step5_upload_docs.php" "/home/bitrix/www/local/1c_integration/logs/cron/step5.log" "step5" &
+* * * * * /home/bitrix/www/local/1c_integration/cron/run_every_15sec.sh "/home/bitrix/www/local/1c_integration/step6_0_sync_change_products.php" "/home/bitrix/www/local/1c_integration/logs/cron/step6_0.log" "step6_0" &
+* * * * * /home/bitrix/www/local/1c_integration/cron/run_every_15sec.sh "/home/bitrix/www/local/1c_integration/step8_expense_invoice.php" "/home/bitrix/www/local/1c_integration/logs/cron/step8.log" "step8" &
+* * * * * /home/bitrix/www/local/1c_integration/cron/run_every_15sec.sh "/home/bitrix/www/local/1c_integration/sync_1c_accounts.php" "/home/bitrix/www/local/1c_integration/logs/cron/sync_accounts.log" "sync_accounts" &
+* * * * * /home/bitrix/www/local/1c_integration/cron/run_every_15sec.sh "/home/bitrix/www/local/1c_integration/step0_create_order.php" "/home/bitrix/www/local/1c_integration/logs/cron/step0.log" "step0" &
+* * * * * /home/bitrix/www/local/1c_integration/cron/run_every_15sec.sh "/home/bitrix/www/local/1c_integration/step3_create_expense.php" "/home/bitrix/www/local/1c_integration/logs/cron/step3.log" "step3" &
+* * * * * /home/bitrix/www/local/1c_integration/cron/run_every_15sec.sh "/home/bitrix/www/local/1c_integration/step1_1_fix_stuck_deals.php" "/home/bitrix/www/local/1c_integration/logs/cron/step1_1.log" "step1_1" &
+
+# === КАЖДЫЕ 15 МИНУТ ===
+*/15 * * * * /usr/bin/flock -n /tmp/1c_integration_locks/step6_1.lock /usr/bin/php /home/bitrix/www/local/1c_integration/step6_1_sync_noempty_products.php >> /home/bitrix/www/local/1c_integration/logs/cron/step6_1.log 2>&1
+*/15 * * * * /usr/bin/flock -n /tmp/1c_integration_locks/step9.lock /usr/bin/php /home/bitrix/www/local/1c_integration/step9_sync_partners.php >> /home/bitrix/www/local/1c_integration/logs/cron/step9.log 2>&1
+*/15 * * * * /usr/bin/flock -n /tmp/1c_integration_locks/sync_users.lock /usr/bin/php /home/bitrix/www/local/1c_integration/sync_users.php >> /home/bitrix/www/local/1c_integration/logs/cron/sync_users.log 2>&1
+
+# === ЕЖЕДНЕВНО ===
+0 3 * * * /usr/bin/flock -n /tmp/1c_integration_locks/step6_2.lock /usr/bin/php /home/bitrix/www/local/1c_integration/step6_2_sync_all_products.php >> /home/bitrix/www/local/1c_integration/logs/cron/step6_2.log 2>&1
+0 4 * * * /usr/bin/flock -n /tmp/1c_integration_locks/step4.lock /usr/bin/php /home/bitrix/www/local/1c_integration/step4_sync_order_num.php >> /home/bitrix/www/local/1c_integration/logs/cron/step4.log 2>&1
