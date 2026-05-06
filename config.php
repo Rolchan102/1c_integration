@@ -2,14 +2,14 @@
 // Настройки интеграции с 1С
 return [
     // === 1С Интеграция ===
-    '1c_base_url' => 'http://172.22.0.48/1R31487/1R31487_UNF16_ke5qqg0emh/hs/PL',
+    '1c_base_url' => '',
     '1c_auth' => [
-        'login' => 'БИТРИКС',
-        'password' => '2026'
+        'login' => '',
+        'password' => ''
     ],
     
     // Вебхук Битрикс24 для обновления сущностей
-    'b24_webhook_url' => 'https://crm.svetpremium.ru/rest/6/rot574q9s82vhnv3/',
+    'b24_webhook_url' => '',
     
     // === Организации 1С (УИД) ===
     'default_organization_uid' => [
